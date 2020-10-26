@@ -5,8 +5,8 @@ const bcrypt = require('bcryptjs');
 const User = require('../../models/User');
 const express = require("express");
 const router = express.Router();
-const validateRegisterInput = require('../../validation/register');
-const validateLoginInput = require('../../validation/login');
+const validateRegisterInput = require('../api/validation/register');
+const validateLoginInput = require('../api/validation/login');
 
 router.get("/test", (req, res) => res.json({ msg: "This is the users route" }));
 
@@ -22,7 +22,7 @@ router.get('/current', passport.authenticate('jwt', { session: false }), (req, r
 router.post('/register', (req, res) => {
 
     const { errors, isValid } = validateRegisterInput(req.body);
-
+ 
     if (!isValid) {
         return res.status(400).json(errors);
     }
